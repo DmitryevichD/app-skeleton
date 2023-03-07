@@ -1,0 +1,4 @@
+embedded:
+  postgresql:
+    docker-image: 'bitnami/postgresql:13.3.0'
+    database: resource

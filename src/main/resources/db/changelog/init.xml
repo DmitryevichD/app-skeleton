@@ -1,0 +1,46 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+<changeSet id="2023-03-06-10-10" author="d.dmitrievich">
+    <createTable tableName="shedlock">
+        <column name="name" type="varchar(64)">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="lock_until" type="timestamp">
+            <constraints nullable="false"/>
+        </column>
+        <column name="locked_at" type="timestamp">
+            <constraints nullable="false"/>
+        </column>
+        <column name="locked_by" type="varchar(255)">
+            <constraints nullable="false"/>
+        </column>
+
+    </createTable>
+
+    <createTable tableName="resource">
+        <column name="id" type="bigint">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="name" type="varchar(255)"/>
+        <column name="info" type="varchar(255)"/>
+    </createTable>
+    
+    <createTable tableName="resource_print_throttling">
+        <column name="id" type="bigint">
+            <constraints nullable="false"/>
+        </column>
+        <column name="date" type="timestamp">
+            <constraints nullable="false"/>
+        </column>
+    </createTable>
+    <addUniqueConstraint
+            columnNames="id, date"
+            constraintName="resource_print_id"
+            tableName="resource_print_throttling"
+    />
+</changeSet>
+</databaseChangeLog>
